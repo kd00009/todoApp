@@ -101,7 +101,7 @@ const HomeScreen = ({route, navigation}) => {
       await auth().signOut();
       await AsyncStorage.clear();
       Alert.alert(' signed out! successfully');
-      navigation.navigate(SCREENS.LOGIN);
+      navigation.replace(SCREENS.LOGIN);
     } catch (error) {
       console.error('Error signing out:', error);
     }
@@ -121,7 +121,7 @@ const HomeScreen = ({route, navigation}) => {
           />
           <TouchableOpacity style={styles.buttonStyles} onPress={handleSubmit}>
             <Text
-              style={{color: isEditing ? 'red' : 'green', fontWeight: 'bold'}}>
+              style={{color: isEditing ? 'red' : 'green', fontWeight: 'bold' , textAlign : 'center'}}>
               {isEditing ? 'Update' : 'Submit'}
             </Text>
           </TouchableOpacity>
@@ -213,9 +213,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#e6e6e6',
     padding: 15,
     borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
     marginLeft: 10,
+    width: 100,
   },
   rowStyles: {
     flexDirection: 'row',
@@ -260,13 +259,17 @@ const styles = StyleSheet.create({
   },
   signoutContainer: {
     alignItems: 'flex-end',
-    marginRight: 20,
+
     marginBottom: 20,
+    marginTop: 20,
+    width: '100%',
   },
   signoutButton: {
     backgroundColor: 'red',
     padding: 10,
     borderRadius: 5,
+    width: '20%',
+    marginRight: 10,
   },
   signoutText: {
     color: 'white',

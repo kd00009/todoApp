@@ -83,20 +83,20 @@ const LoginScreen = () => {
     return (
       <View style={styles.container}>
         <Text style={styles.headerText}>Welcome Back!</Text>
-        <View style={styles.inputContainer}>
-          <Text
-            style={[
-              styles.label,
-              {
-                color: 'red',
-                fontWeight: 'bold',
-                alignSelf: 'center',
-                fontSize: 20,
-              },
-            ]}>
-            {userEmail}
-          </Text>
-        </View>
+        <Text
+          style={[
+            styles.label,
+            {
+              color: 'red',
+              fontWeight: 'bold',
+              alignSelf: 'center',
+              fontSize: 20,
+              width: '100%',
+              textAlign: 'center',
+            },
+          ]}>
+          {userEmail}
+        </Text>
         <TouchableOpacity style={styles.button} onPress={handleContinue}>
           <Text style={styles.buttonText}>Continue</Text>
         </TouchableOpacity>
@@ -140,7 +140,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
+    width: '100%',
     color: '#fff',
+    textAlign: 'center',
   },
   inputContainer: {
     width: '100%',
@@ -164,18 +166,21 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   button: {
-    width: '100%',
     height: 40,
     backgroundColor: '#007AFF',
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 25,
+    width: '80%',
+    marginVertical: 20,
   },
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 16,
+    textAlign: 'center',
+    width: '100%',
   },
 });
 
