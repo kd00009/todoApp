@@ -123,6 +123,9 @@ const LoginScreen = () => {
         />
       </View>
       <Button text="Login" onPress={handleLogin} />
+      <Text style={[styles.label , {marginBottom: 20}]}>
+        Don't have an account ? enter email and password and hit sign up 
+      </Text>
       <Button text="Sign Up" onPress={handleSignUp} />
     </View>
   );
