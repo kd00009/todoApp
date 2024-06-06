@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, TextInput, Text, StyleSheet } from 'react-native';
+import { colors } from '../constants/theme';
 
 const InputField = ({ label, placeholder, value, onChangeText, secureTextEntry }) => {
   return (
@@ -26,13 +27,13 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'white',
+    color: colors.primaryText,
   },
   input: {
     width: '100%',
     height: 40,
     borderBottomWidth: 1,
-    borderBottomColor: 'white',
+    borderBottomColor: colors.primaryText,
     borderRadius: 5,
     marginBottom: 10,
     fontSize: 16,
