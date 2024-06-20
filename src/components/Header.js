@@ -26,7 +26,7 @@ const Header = ({title, isMainScreen, backgroundColor, subTitle}) => {
         <View style={styles.mainHeaderContainer}>
           <View style={styles.innerContainer}>
             <Text style={styles.headerText}>{title}</Text>
-            <Text style={styles.subtitle}>{subTitle}</Text>
+   
           </View>
           <View style={styles.iconContainer}>
             <TouchableOpacity>

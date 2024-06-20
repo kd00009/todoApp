@@ -1,40 +1,121 @@
-// Dashoboard.js
-import React from 'react';
-import {SafeAreaView, StyleSheet, View} from 'react-native';
-import Card from '../components/Card';
+import React, {useEffect, useState} from 'react';
+import {
+  FlatList,
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Text,
+  ActivityIndicator,
+} from 'react-native';
 import Header from '../components/Header';
-import { colors } from '../constants/theme';
+import RecipeCard from '../components/Card';
+import {colors} from '../constants/theme';
+import axios from 'axios';
 
-const Dashoboard = () => {
-  const handleMeetingPress = () => {
-    console.log('Meeting button pressed');
+const Dashboard = ({navigation}) => {
+  const [recipes, setRecipes] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [currentLetter, setCurrentLetter] = useState('a');
+
+  useEffect(() => {
+    fetchRecipes(currentLetter);
+  }, [currentLetter]);
+
+  const fetchRecipes = async (letter) => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`,
+      );
+      setRecipes(prevRecipes => [...prevRecipes, ...response.data.meals]);
+      setFilteredRecipes(prevFiltered => [...prevFiltered, ...response.data.meals]);
+    } catch (error) {
+      console.error('Error fetching recipes', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleLeadsPress = () => {
-    console.log('Leads button pressed');
+  const handleSearch = text => {
+    setSearch(text);
+    const filtered = recipes.filter(
+      recipe =>
+        recipe.strMeal.toLowerCase().includes(text.toLowerCase()) ||
+        recipe.strIngredient1.toLowerCase().includes(text.toLowerCase()),
+    );
+    setFilteredRecipes(filtered);
+  };
+
+  const loadMoreRecipes = () => {
+    if (!loading) {
+      const nextLetter = String.fromCharCode(currentLetter.charCodeAt(0) + 1);
+      if (nextLetter <= 'z') {
+        setCurrentLetter(nextLetter);
+      }
+    }
   };
 
   return (
-    <SafeAreaView style={{backgroundColor : colors.background , flex : 1}}>
+    <SafeAreaView style={styles.safeArea}>
       <Header
-        subTitle="suraj.kumar@axproperties"
-        title="Suraj kumar"
+        title="The Recipe App"
         isMainScreen={true}
-        backgroundColor="black"
+        backgroundColor={colors.primary}
       />
       <View style={styles.container}>
-        <Card title="Meetings" onPress={handleMeetingPress} />
-        <Card title="Leads" onPress={handleLeadsPress} />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search recipes..."
+          value={search}
+          onChangeText={handleSearch}
+        />
+        <FlatList
+          data={filteredRecipes}
+          keyExtractor={item => item.idMeal}
+          renderItem={({item}) => (
+            <RecipeCard
+              item={item}
+              onPress={() => navigation.navigate('RecipeDetail', {recipe: item})}
+            />
+          )}
+          contentContainerStyle={styles.flatListContent}
+          onEndReached={loadMoreRecipes}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={loading && <ActivityIndicator size="large" />}
+        />
       </View>
     </SafeAreaView>
   );
 };
 
-export default Dashoboard;
+export default Dashboard;
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
   container: {
-    alignItems: 'center',
-    padding: 20,
+    flex: 1,
+    padding: 16,
+  },
+  searchInput: {
+    height: 40,
+    borderColor: colors.primary,
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    marginBottom: 16,
+    backgroundColor: colors.white,
+    fontSize: 16,
+    color: colors.header_bg,
+    fontWeight: 'bold',
+  },
+  flatListContent: {
+    paddingBottom: 16,
   },
 });
