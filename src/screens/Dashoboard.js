@@ -9,6 +9,7 @@ import {
   View,
   Text,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import Header from '../components/Header';
 import RecipeCard from '../components/Card';
@@ -35,7 +36,7 @@ const Dashboard = ({navigation}) => {
       setRecipes(prevRecipes => [...prevRecipes, ...response.data.meals]);
       setFilteredRecipes(prevFiltered => [...prevFiltered, ...response.data.meals]);
     } catch (error) {
-      console.error('Error fetching recipes', error);
+     Alert('Error fetching recipes', error);
     } finally {
       setLoading(false);
     }
@@ -71,6 +72,7 @@ const Dashboard = ({navigation}) => {
         <TextInput
           style={styles.searchInput}
           placeholder="Search recipes..."
+          placeholderTextColor={colors.header_bg}
           value={search}
           onChangeText={handleSearch}
         />

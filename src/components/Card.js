@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
+    color : colors.textColor
   },
   removeButton: {
     padding: 15,
@@ -54,7 +55,8 @@ const styles = StyleSheet.create({
   },
   category: {
     fontSize: 14,
-    color: colors.textSecondary,
+    color : colors.secondary,
+
     fontWeight: '700',
   },
 });
