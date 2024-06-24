@@ -4,11 +4,11 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import {SvgXml} from 'react-native-svg';
 import {StyleSheet} from 'react-native';
-import Dashoboard from '../screens/Dashoboard';
 import RecipeDetailScreen from '../screens/RecipeDetailScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import {DASHBOARD, DASHBOARD_ACTIVE, FAV, FAV_ACTIVE} from '../constants/svg';
 import {colors} from '../constants/theme';
+import HomeScreen from '../screens/HomeScreen';
 
 const Tab = createBottomTabNavigator();
 const MainStack = createStackNavigator();
@@ -36,7 +36,7 @@ const Tabs = () => (
     }}>
     <Tab.Screen
       name="Home"
-      component={Dashoboard}
+      component={HomeScreen}
       options={{
         headerShown: false,
         tabBarIcon: ({focused}) => (

@@ -16,7 +16,7 @@ import RecipeCard from '../components/Card';
 import {colors} from '../constants/theme';
 import axios from 'axios';
 
-const Dashboard = ({navigation}) => {
+const HomeScreen = ({navigation}) => {
   const [recipes, setRecipes] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [search, setSearch] = useState('');
@@ -37,6 +37,7 @@ const Dashboard = ({navigation}) => {
       setFilteredRecipes(prevFiltered => [...prevFiltered, ...response.data.meals]);
     } catch (error) {
      Alert('Error fetching recipes', error);
+     console.error(error);
     } finally {
       setLoading(false);
     }
@@ -60,6 +61,7 @@ const Dashboard = ({navigation}) => {
       }
     }
   };
+
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -87,15 +89,15 @@ const Dashboard = ({navigation}) => {
           )}
           contentContainerStyle={styles.flatListContent}
           onEndReached={loadMoreRecipes}
-          onEndReachedThreshold={0.5}
-          ListFooterComponent={loading && <ActivityIndicator size="large" />}
+          onEndReachedThreshold={0.1}
+          ListFooterComponent={loading && <ActivityIndicator size="large" style={{marginVertical: 16}} />}
         />
       </View>
     </SafeAreaView>
   );
 };
 
-export default Dashboard;
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   safeArea: {
