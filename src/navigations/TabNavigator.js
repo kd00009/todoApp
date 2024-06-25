@@ -1,12 +1,12 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {StyleSheet} from 'react-native';
-import Dashboard from '../components/Dashboard';
-import ContactForm from '../components/ContactForm';
-import Home from '../components/Home';
+
 import {colors} from '../constants/theme';
 import {SvgXml} from 'react-native-svg';
-import {DASHBOARD, FORM, HOME} from '../constants/svg';
+import { FORM, HOME} from '../constants/svg';
+import HomeScreen from '../screens/HomeScreen';
+import FavoriteScreen from '../screens/FavoriteScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -38,42 +38,29 @@ const TabNavigator = () => {
       }}>
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={HomeScreen}
         options={{
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({color}) => (
             <SvgXml
               xml={HOME}
               height={24}
               width={22}
-              fill={color} // Use color prop to dynamically set the icon color
+              fill={color} 
             />
           ),
         }}
       />
       <Tab.Screen
-        name="Dashboard"
-        component={Dashboard}
+      
+        name="Favorites"
+        component={FavoriteScreen}
         options={{
-          tabBarIcon: ({ color }) => (
-            <SvgXml
-              xml={DASHBOARD}
-              height={24}
-              width={22}
-              fill={color} // Use color prop to dynamically set the icon color
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Form"
-        component={ContactForm}
-        options={{
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({color}) => (
             <SvgXml
               xml={FORM}
               height={24}
               width={25}
-              fill={color} // Use color prop to dynamically set the icon color
+              fill={color} 
             />
           ),
         }}

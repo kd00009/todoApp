@@ -5,6 +5,8 @@ import auth from '@react-native-firebase/auth';
 import DrawerNavigator from './src/navigations/DrawerNavigator';
 import AuthNavigator from './src/navigations/AuthNavigator';
 import {createTable, createUsersTable} from './src/services/sqlite';
+import { Provider } from 'react-redux';
+import store from './src/redux/store';
 
 const App = () => {
   const [user, setUser] = useState(false);
@@ -18,9 +20,11 @@ const App = () => {
   }, []);
 
   return (
+    <Provider store={store}>
     <NavigationContainer>
       {user ? <DrawerNavigator /> : <AuthNavigator />}
     </NavigationContainer>
+    </Provider>
   );
 };
 

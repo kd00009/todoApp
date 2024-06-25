@@ -2,7 +2,6 @@ import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import TabNavigator from './TabNavigator';
 import Settings from '../components/Settings';
-import UserSignupList from '../components/UserSignupList';
 import Profile from '../components/Profile';
 import {colors} from '../constants/theme';
 
@@ -35,7 +34,6 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen name="Profile" component={Profile} />
       <Drawer.Screen name="Settings" component={Settings} />
-      <Drawer.Screen name="User Signup List" component={UserSignupList} />
     </Drawer.Navigator>
   );
 };

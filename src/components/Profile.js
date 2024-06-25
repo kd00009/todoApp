@@ -13,6 +13,7 @@ import auth from '@react-native-firebase/auth';
 import {showUserById, updateUserById} from '../services/sqlite';
 import {colors} from '../constants/theme';
 import {useFocusEffect} from '@react-navigation/native';
+import ContactForm from './ContactForm';
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -143,7 +144,7 @@ const Profile = () => {
           </TouchableOpacity>
         </View>
       ) : (
-        <Text style={styles.text}>No user registered</Text>
+        <ContactForm/>
       )}
     </View>
   );

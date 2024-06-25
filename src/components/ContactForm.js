@@ -13,6 +13,7 @@ import auth from '@react-native-firebase/auth';
 import SQLite from 'react-native-sqlite-storage';
 import { addUser, createUsersTable, showUserById } from '../services/sqlite';
 import { colors } from '../constants/theme';
+import Profile from './Profile';
 
 const FormField = ({ label, value, onChangeText, placeholder, keyboardType, error }) => (
   <>
@@ -101,7 +102,7 @@ const ContactForm = () => {
   return (
     <View style={styles.container}>
       {userExists ? (
-        <Text style={styles.text}>User Registered.</Text>
+      <Profile/>
       ) : (
         <View style={styles.innerContainer}>
           <FormField

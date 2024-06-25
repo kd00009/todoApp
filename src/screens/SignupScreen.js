@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Alert,
-  StyleSheet,
-  Text,
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, Alert, StyleSheet, Text} from 'react-native';
 import auth from '@react-native-firebase/auth';
-import { SCREENS } from '../constants/screens';
-import { useNavigation } from '@react-navigation/native';
+import {SCREENS} from '../constants/screens';
+import {useNavigation} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import Button from '../components/Button';
 import InputField from '../components/InputField';
-import { colors } from '../constants/theme';
+import {colors} from '../constants/theme';
 
 const SignupScreen = () => {
   const [email, setEmail] = useState('');
@@ -19,26 +14,26 @@ const SignupScreen = () => {
   const navigation = useNavigation();
 
   const handleSignUp = async () => {
-    if (!email || !password ) {
+    if (!email || !password) {
       Alert.alert('Sign Up Error', 'Please enter email and password');
       return;
     }
     try {
       await auth().createUserWithEmailAndPassword(email, password);
-
       const user = auth().currentUser;
-      await firestore()
-      .collection('signup_users')
-      .doc(user.uid)
-      .set({
-        email: email,
-      });
-      navigation.replace('Home');
+      if (!user) {
+        return;
+      } else {
+        navigation.replace('Home');
+        return;
+      }
     } catch (signUpError) {
       if (signUpError.code === 'auth/email-already-in-use') {
         Alert.alert('Sign Up Error', 'User already exists');
+        return;
       } else {
         Alert.alert('Sign Up Error', 'Invalid email or password');
+        return;
       }
     }
   };
@@ -66,9 +61,12 @@ const SignupScreen = () => {
         />
       </View>
       <Button text="Sign Up" onPress={handleSignUp} />
-      <Text style={[styles.label, { marginBottom: 20 }]}> 
-      Already have an account? <Text onPress={handleNavigateToLogin} style={styles.linkText}>Login</Text></Text>
-
+      <Text style={[styles.label, {marginBottom: 20}]}>
+        Already have an account?{' '}
+        <Text onPress={handleNavigateToLogin} style={styles.linkText}>
+          Login
+        </Text>
+      </Text>
     </View>
   );
 };
@@ -104,7 +102,6 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontWeight: 'bold',
     fontSize: 18,
-
   },
 });
 
