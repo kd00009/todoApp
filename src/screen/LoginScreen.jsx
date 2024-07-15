@@ -58,7 +58,7 @@ const LoginScreen = () => {
         Alert.alert("Success", "Sign up successfully", [
           { text: "OK", onPress: () => console.log("OK Pressed") },
         ]);
-      }, 2000); // Simulate network request
+      }, 2000); 
     }
   };
 
